@@ -9,7 +9,7 @@ email_password = settings.EMAIL_HOST_PASSWORD
 # Create a secure SSL context
 context = ssl.create_default_context()
 
-url = "http://secbc.herokuapp.com"
+url = "http://wcbc-manager.herokuapp.com"
 
 
 def sendOutingReminders(outing_id):
