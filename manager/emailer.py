@@ -49,7 +49,7 @@ def sendOutingReminders(outing_id):
 # Todo Use Django email api instead
 def send_email(crsids, subject, body):
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        sent_from = "wolfson.captain@cucbc.org"
+        sent_from = "alexjameschan@gmail.com"
         server.login(sent_from, email_password)
         i = True
         for email in [crsid + "@cam.ac.uk" for crsid in crsids]:
@@ -69,7 +69,7 @@ def send_email(crsids, subject, body):
 
 
 def sendSignupDetails(crsid, password):
-    sent_from = "wolfson.captain@cucbc.org"
+    sent_from = "alexjameschan@gmail.com"
     send_to = crsid + "@cam.ac.uk"
     subject = "Welcome to Wolfson College Boat Club"
 

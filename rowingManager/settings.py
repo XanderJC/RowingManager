@@ -60,7 +60,7 @@ ROOT_URLCONF = "rowingManager.urls"
 EMAIL_USE_TLS = True
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = "wolfson.captain@cucbc.org"
+EMAIL_HOST_USER = "alexjameschan@gmail.com"
 EMAIL_HOST_PASSWORD = os.environ.get("GMAIL_PASSWORD")
 
 TEMPLATES = [
