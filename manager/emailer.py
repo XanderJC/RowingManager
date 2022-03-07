@@ -26,8 +26,8 @@ def sendOutingReminders(outing_id):
         + " at "
         + str(outing.meetingTime)
         + """.</p>
-              <p>You can check your upcoming outings at http://secbc.herokuapp.com/myOutings/</p>
-              <p>/SECBC Website</p>
+              <p>You can check your upcoming outings at http://wcbc-manager.herokuapp.com/myOutings/</p>
+              <p>/WCBC Website</p>
               </body></html>
               """
     )
@@ -43,7 +43,7 @@ def sendOutingReminders(outing_id):
             crsids += [person.username]
             HasBeenMailedOuting(person=person, outing=outing).save()
 
-    send_email(crsids, "[SECBC WEBSITE] Outing Reminder", body)
+    send_email(crsids, "[WCBC WEBSITE] Outing Reminder", body)
 
 
 # Todo Use Django email api instead
@@ -62,7 +62,7 @@ def send_email(crsids, subject, body):
                 "Content-Type: text/html",
             ]
             if i:
-                headers += ["CC: stedmunds.captain@cucbc.org"]
+                headers += ["CC: wolfson.captain@cucbc.org"]
                 i = False
             headers = "\r\n".join(headers)
             server.sendmail(sent_from, send_to, headers + "\r\n\r\n" + body)
@@ -86,7 +86,7 @@ def sendSignupDetails(crsid, password):
         """<html>
       <head></head>
       <body>
-      <p>Welcome to the SECBC website! Sign in at http://secbc.herokuapp.com using """
+      <p>Welcome to the WCBC website! Sign in at http://wcbc-manager.herokuapp.com using """
         + password
         + """ as your password.</p>
       <p>Please remember to change your password after you've logged in</p>
