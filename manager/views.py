@@ -6,6 +6,7 @@ import datetime
 import math
 import uuid
 import re
+import csv
 
 from .emailer import sendSignupDetails, sendOutingReminders
 
@@ -496,6 +497,7 @@ def signup_page(request):
     if request.method == 'GET':
         context = {
             'outings': sorted(Outing.objects.filter(date__gte=today), key=lambda x: (x.date, x.meetingTime)),
+            'teams': [{"isMember": InTeam.objects.filter(team = team.id, person=request.user.id).count()>0, "value": team } for team in Team.objects.all()],
             'availability_ids': [x.outing.id for x in Available.objects.filter(person=request.user.id)],
             'availability_rw_ids': [x.outing.id for x in Available.objects.filter(person=request.user.id, type='RW')],
             'availability_cx_ids': [x.outing.id for x in Available.objects.filter(person=request.user.id, type='CX')],
@@ -504,3 +506,59 @@ def signup_page(request):
         }
 
         return render(request, 'signup_sheet.html', context)
+
+
+@login_required(login_url='login')
+def outing_analyser(request, s):
+    # Todo use forms
+
+    if not is_captain(request.user):
+        return render(request, 'no_permission.html', {})
+
+    outings_aug = []
+
+    crsids = s.split(",")
+
+    for o in Outing.objects.all():
+        i = 0
+        outing_names = []
+        for io in InOuting.objects.filter(outing = o.id):
+            if io.person.username in crsids:
+                i += 1
+                outing_names += [io.person.first_name + " " + io.person.last_name+ " ("+io.person.username+")"]
+        outings_aug += [{"count": i, "outing": o, 'people_string': ",".join(outing_names)}]
+
+    outings_aug = sorted(outings_aug, reverse=True, key=lambda x: x["count"])
+
+    return render(request, 'outing_analyzer.html', {"outings_aug": outings_aug})
+
+# For captains
+def get_rower_csv(request):
+    if not is_captain(request.user):
+        return render(request, 'no_permission.html', {})
+
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(
+        content_type='text/csv',
+        headers={'Content-Disposition': 'attachment; filename="rowers.csv"'},
+    )
+
+    writer = csv.writer(response)
+    cols = ['CRSID', 'First name', 'Last name']
+    team_ids = []
+    for team in Team.objects.all():
+        cols += [team.name]
+        team_ids += [team.id]
+
+    writer.writerow(cols)
+    for user in User.objects.all():
+        row = [user.username, user.first_name, user.last_name]
+        inTeams = [x.team.id for x in InTeam.objects.filter(person = user.id)]
+        for team_id in team_ids:
+            if team_id in inTeams:
+                row += ["Yes"]
+            else:
+                row += ["No"]
+        writer.writerow(row)
+
+    return response
