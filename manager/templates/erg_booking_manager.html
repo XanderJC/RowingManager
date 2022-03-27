@@ -4,32 +4,32 @@
 
 <style>
     .header {
-      display: flex;
-      width: 100%;
-      overflow-x: scroll;
+        display: flex;
+        width: 100%;
+        overflow-x: scroll;
     }
 
     .item {
-      flex-basis: 100%;
-      margin: 20px;
-      text-align: center;
-      border: 1px solid black;
-      display: flex;
-      flex-direction: column;
+        flex-basis: 100%;
+        margin: 20px;
+        text-align: center;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
     }
 
     .bookingContent {
-     display: inline-block;
+        display: inline-block;
     }
 
     .ergForm {
-     display: inline-block;
-     margin-top: auto;
-     align-self: flex-end;
+        display: inline-block;
+        margin-top: auto;
+        align-self: flex-end;
     }
 </style>
 
-<h2>Book ergs</h2>
+<h2>Book Ergs and Small Boats</h2>
 <div style="width: 100%">
     {% for bookingDay in bookingDays %}
     <h3>{{bookingDay.date}}</h3>
@@ -41,14 +41,14 @@
             <hr>
             <h5>Bookings</h5>
             <div class="bookingContent">
-            {% for booking in ergBooking.bookings%}
-            {{booking.person}} booked {{booking.startTime}} for {{booking.hours}} hour(s)
-            {% if booking.person.id == currentUserId %}
-            <button onclick="deleteBooking({{booking.id}})" class="btn btn-danger">DELETE</button>
-            {% endif %}
-            <br>
-            {% endfor %}
-            <br>
+                {% for booking in ergBooking.bookings%}
+                {{booking.person}} booked {{booking.startTime}} for {{booking.hours}} hour(s)
+                {% if booking.person.id == currentUserId %}
+                <button onclick="deleteBooking({{booking.id}})" class="btn btn-danger">DELETE</button>
+                {% endif %}
+                <br>
+                {% endfor %}
+                <br>
             </div>
 
             <div class="ergForm">
@@ -71,16 +71,16 @@
 <script>
     function deleteBooking(id) {
         let dataForm = new FormData();
-        dataForm.append('b_id',id)
+        dataForm.append('b_id', id)
         body = {
             method: 'post',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken')
-                },
+            },
             body: dataForm,
             credentials: 'same-origin'
         }
-        fetch('/deleteErgBooking/', body).then(response => response.text()).then(data => (data=="Success!")?location.reload():alert(data))
+        fetch('/deleteErgBooking/', body).then(response => response.text()).then(data => (data == "Success!") ? location.reload() : alert(data))
     }
 
 

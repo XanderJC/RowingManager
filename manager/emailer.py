@@ -90,9 +90,6 @@ def sendSignupDetails(crsid, password):
         + password
         + """ as your password.</p>
       <p>Please remember to change your password after you've logged in</p>
-      <p>HOW TO SIGN UP FOR ERG SESSIONS: Go to login -> Sign up for outings as a rower -> Click 'join' on any erg times for which you may be available</p>
-      <p>Once you've marked yourself as available, the captains may assign you a spot on any of your available days.</p>
-      <p>TO SEE IF YOU'VE BEEN ALLOTED FOR AN ERG SESSION: Check 'view my outings' a bit later (We'll also be sending out mails).</p>
       </body></html>
       """
     )

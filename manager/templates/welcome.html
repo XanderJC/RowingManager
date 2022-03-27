@@ -2,25 +2,25 @@
 
 {% block content %}
 <div class="d-flex flex-row">
-<div class="p-2">
-  <h2>Welcome!</h2>
-Here are the pages you may find interesting...
-<ul>
-  <li><a href="/myOutings">View my outings </a></li>
-  <li><a href="/signupSheet">Sign up for outings</a></li>
-  <li><a href="/ergBooking">Book ergs</a></li>
-  <li><a href="/myWorkouts">View my erg workouts</a>
+  <div class="p-2">
+    <h2>Welcome!</h2>
+    Here are the pages you may find interesting...
     <ul>
-      <li><a href="/createWorkout">Add erg workout</a></li>
+      <li><a href="/myOutings">View my outings </a></li>
+      <li><a href="/signupSheet">Sign up for outings</a></li>
+      <li><a href="/ergBooking">Book Ergs and Small Boats</a></li>
+      <li><a href="/myWorkouts">View my erg workouts</a>
+        <ul>
+          <li><a href="/createWorkout">Add erg workout</a></li>
+        </ul>
+      </li>
+      <li><a href="/myProfile">View my profile </a></li>
+      <li><a href="/ergManager/teams/0">Manage team ergs (captains only) </a></li>
+      <li><a href="/outings">Manage outings (captains only) </a></li>
+      <li><a href="/createOuting">Create outings (captains only) </a></li>
+      <li><a href="/signup">Sign up single user (captains only) </a></li>
+      <li><a href="/signupBulk">Sign up users in bulk (captains only) </a></li>
     </ul>
-  </li>
-  <li><a href="/myProfile">View my profile </a></li>
-  <li><a href="/ergManager/teams/0">Manage team ergs (captains only) </a></li>
-  <li><a href="/outings">Manage outings (captains only) </a></li>
-  <li><a href="/createOuting">Create outings (captains only) </a></li>
-  <li><a href="/signup">Sign up single user (captains only) </a></li>
-  <li><a href="/signupBulk">Sign up users in bulk (captains only) </a></li>
-</ul>
   </div>
   <div class="p-2 ml-auto" style="width: 400px">
     {% if announcements %}
@@ -33,5 +33,5 @@ Here are the pages you may find interesting...
     <br><br>
     {% endfor %}
   </div>
-  </div>
+</div>
 {% endblock %}
